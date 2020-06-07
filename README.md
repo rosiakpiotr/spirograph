@@ -11,7 +11,7 @@ Compilation won't suceed if you don't link [TGUI](https://tgui.eu/) and [SFML](h
 
 On linux you can download TGUI and SFML by typing
 ```
-sudo apt-get install libsfml-dev libtgui-dev
+sudo apt-get install libsfml-dev
 sudo add-apt-repository ppa:texus/tgui-0.8
 sudo apt-get update
 sudo apt-get install libtgui-dev
