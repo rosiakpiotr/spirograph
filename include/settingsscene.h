@@ -7,16 +7,15 @@
 #include "scene.h"
 #include "spirographscene.h"
 
-using namespace sf;
 using namespace tgui;
 
 class SettingsScene : public Scene
 {
 public:
-    SettingsScene(RenderWindow& window, SceneManager& sceneMgr);
+    SettingsScene(sf::RenderWindow& window, SceneManager& sceneMgr);
 
-    virtual void handleInput(Event& e);
-    virtual void update(Time& deltaTime);
+    virtual void handleInput(sf::Event& e);
+    virtual void update(sf::Time& deltaTime);
     virtual void render();
 
     virtual ~SettingsScene() {}

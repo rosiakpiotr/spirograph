@@ -1,6 +1,6 @@
 #include "settingsscene.h"
 
-SettingsScene::SettingsScene(RenderWindow& window, SceneManager& sceneMgr)
+SettingsScene::SettingsScene(sf::RenderWindow& window, SceneManager& sceneMgr)
     : Scene(window, &sceneMgr)
 {
     build(mUI);
@@ -22,17 +22,17 @@ void SettingsScene::build(Gui& gui)
 
     Label::Ptr tabLeftTop = Label::create("Ramie");
     tabLeftTop->setPosition(100, 150);
-    tabLeftTop->setTextColor(sf::Color::White);
+    tabLeftTop->getRenderer()->setTextColor(sf::Color::White);
     gui.add(tabLeftTop);
 
     Label::Ptr tabMidTop = Label::create(L"Długość");
     tabMidTop->setPosition(385, 150);
-    tabMidTop->setTextColor(sf::Color::White);
+    tabMidTop->getRenderer()->setTextColor(sf::Color::White);
     gui.add(tabMidTop);
 
     Label::Ptr tabRightTop = Label::create(L"Prędkość obrotowa(rad/s)");
     tabRightTop->setPosition(670, 150);
-    tabRightTop->setTextColor(sf::Color::White);
+    tabRightTop->getRenderer()->setTextColor(sf::Color::White);
     gui.add(tabRightTop);
 
     HorizontalLayout::Ptr panel = HorizontalLayout::create();
@@ -81,7 +81,7 @@ void SettingsScene::newArmPrompt()
 
         Label::Ptr lenLabel = Label::create(L"Długość"); // 70 width
         lenLabel->setPosition(300 - 1.63 * lenLabel->getSize().x, 55);
-        lenLabel->setTextColor(sf::Color::Black);
+        lenLabel->getRenderer()->setTextColor(sf::Color::Black);
         childWindow->add(lenLabel);
 
         EditBox::Ptr lenEdit = EditBox::create();
@@ -92,7 +92,7 @@ void SettingsScene::newArmPrompt()
 
         Label::Ptr angSpeedLabel = Label::create(L"Prędkość obrotowa(rad/s)"); // 230 width
         angSpeedLabel->setPosition(300 + 0.30 * angSpeedLabel->getSize().x, 55);
-        angSpeedLabel->setTextColor(sf::Color::Black);
+        angSpeedLabel->getRenderer()->setTextColor(sf::Color::Black);
         childWindow->add(angSpeedLabel);
 
         EditBox::Ptr angSpeedEdit = EditBox::create();
@@ -106,7 +106,7 @@ void SettingsScene::newArmPrompt()
         {
             Label::Ptr indexLabel = Label::create(L"Kolejność"); // 100 width
             indexLabel->setPosition(250, 195);
-            indexLabel->setTextColor(sf::Color::Black);
+            indexLabel->getRenderer()->setTextColor(sf::Color::Black);
             childWindow->add(indexLabel);
 
             ListBox::Ptr indexList = ListBox::create();
@@ -139,9 +139,9 @@ void SettingsScene::newArmPrompt()
         applyTrig->connect("pressed", [this, childWindow]
         {
 
-            auto list = mUI.get<ListBox>("listIndex", true);
-            auto lenEdit = mUI.get<EditBox>("lenEdit", true);
-            auto angSpeedEdit = mUI.get<EditBox>("angSpeedEdit", true);
+            auto list = mUI.get<ListBox>("listIndex");
+            auto lenEdit = mUI.get<EditBox>("lenEdit");
+            auto angSpeedEdit = mUI.get<EditBox>("angSpeedEdit");
             int moveBy = 0;
 
             if (list != nullptr)
@@ -203,7 +203,7 @@ void SettingsScene::removeArmPrompt()
 
         applyTrig->connect("pressed", [this, childWindow]
         {
-            auto list = mUI.get<ListBox>("listIndex", true);
+            auto list = mUI.get<ListBox>("listIndex");
             int selected = list->getSelectedItemIndex();
             // Remove selected item.
             mArms.erase(mArms.begin() + selected);
@@ -218,9 +218,9 @@ void SettingsScene::removeArmPrompt()
 
 void SettingsScene::updateListBoxes()
 {
-    auto listLeft = mUI.get<ListBox>("listLeft", true);
-    auto listMid = mUI.get<ListBox>("listMid", true);
-    auto listRight = mUI.get<ListBox>("listRight", true);
+    auto listLeft = mUI.get<ListBox>("listLeft");
+    auto listMid = mUI.get<ListBox>("listMid");
+    auto listRight = mUI.get<ListBox>("listRight");
 
     listLeft->removeAllItems();
     listMid->removeAllItems();
@@ -235,13 +235,8 @@ void SettingsScene::updateListBoxes()
     }
 }
 
-void SettingsScene::handleInput(Event& e)
+void SettingsScene::handleInput(sf::Event& e)
 {
-    if (e.type == Event::MouseMoved)
-    {
-        //printf("%d, %d\n", e.mouseMove.x, e.mouseMove.y);
-    }
-
     mUI.handleEvent(e);
 }
 
@@ -250,7 +245,7 @@ void SettingsScene::render()
     mUI.draw();
 }
 
-void SettingsScene::update(Time& deltaTime)
+void SettingsScene::update(sf::Time& deltaTime)
 {
     // Nothing to update in this scene.
 }

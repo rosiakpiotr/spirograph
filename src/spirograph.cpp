@@ -1,12 +1,12 @@
 #include "spirograph.h"
 
-Spirograph::Spirograph(Vector2f pos, std::vector<Arm> arms)
+Spirograph::Spirograph(sf::Vector2f pos, std::vector<Arm> arms)
 {
     this->mArms = arms;
     this->mVisible = true;
     this->mRunning = true;
 
-    mTrace.setPrimitiveType(PrimitiveType::LineStrip);
+    mTrace.setPrimitiveType(sf::PrimitiveType::LineStrip);
 
     // Tell arms to who are they supposed to be glued.
     Arm* armBefore = nullptr;
@@ -23,7 +23,7 @@ Spirograph::Spirograph(Vector2f pos, std::vector<Arm> arms)
     setPosition(pos);
 }
 
-void Spirograph::tick(Time& deltaTime)
+void Spirograph::tick(sf::Time& deltaTime)
 {
     if (mRunning)
     {
@@ -34,7 +34,7 @@ void Spirograph::tick(Time& deltaTime)
 
         // Add point to trace array.
         // The last arm draws so take its connection point as position of Vertex.
-        mTrace.append(Vertex(mArms.back().getConnectionPoint()));
+        mTrace.append(sf::Vertex(mArms.back().getConnectionPoint()));
     }
 }
 
@@ -53,7 +53,7 @@ bool Spirograph::getVisibility()
     return mVisible;
 }
 
-void Spirograph::setPosition(Vector2f pos)
+void Spirograph::setPosition(sf::Vector2f pos)
 {
     // We are setting position of only frist arm
     // because the rest will update their positions on tick() method.
@@ -63,7 +63,7 @@ void Spirograph::setPosition(Vector2f pos)
     }
 }
 
-void Spirograph::draw(RenderTarget& target, RenderStates states) const
+void Spirograph::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     // Draw trace.
     target.draw(mTrace);

@@ -9,10 +9,10 @@
 class SpirographScene : public Scene
 {
 public:
-    SpirographScene(RenderWindow& window, SceneManager& sceneMgr, std::vector<Arm> arms);
+    SpirographScene(sf::RenderWindow& window, SceneManager& sceneMgr, std::vector<Arm> arms);
 
-    virtual void handleInput(Event& e);
-    virtual void update(Time& deltaTime);
+    virtual void handleInput(sf::Event& e);
+    virtual void update(sf::Time& deltaTime);
     virtual void render();
 
 private:

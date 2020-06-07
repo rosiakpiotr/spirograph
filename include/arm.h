@@ -7,31 +7,29 @@
 #include <SFML/System/Time.hpp>
 #include <math.h>
 
-using namespace sf;
-
 class Arm
 {
 public:
     Arm(int length, float rotationSpeed);
 
-    void tick(Time& deltaTime);
+    void tick(sf::Time& deltaTime);
 
     void rotate(float angle);
 
-    Vector2f getConnectionPoint();
+    sf::Vector2f getConnectionPoint();
 
-    void setPosition(Vector2f position);
+    void setPosition(sf::Vector2f position);
 
     float getRotationSpeed();
 
     int getLength();
 
-    RectangleShape& getShape() const;
+    sf::RectangleShape& getShape() const;
 
     void setParent(Arm* arm);
 
 private:
-    RectangleShape mShape;
+    sf::RectangleShape mShape;
     float mRotationSpeed;
     int length;
     Arm* mParent;

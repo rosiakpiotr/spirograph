@@ -1,8 +1,8 @@
 #include "spirographscene.h"
 
-SpirographScene::SpirographScene(RenderWindow& window, SceneManager& sceneMgr,
+SpirographScene::SpirographScene(sf::RenderWindow& window, SceneManager& sceneMgr,
                                  std::vector<Arm> arms)
-    : Scene(window, &sceneMgr), mSpiro(Vector2f(1280 / 2.f, 720 / 2.f), arms), mTimeScale(1)
+    : Scene(window, &sceneMgr), mSpiro(sf::Vector2f(1280 / 2.f, 720 / 2.f), arms), mTimeScale(1)
 {
     build(mUI);
 }
@@ -34,25 +34,20 @@ void SpirographScene::build(Gui& gui)
     });
 }
 
-void SpirographScene::handleInput(Event& e)
+void SpirographScene::handleInput(sf::Event& e)
 {
-    if (e.type == Event::MouseMoved)
-    {
-        //printf("%d, %d\n", e.mouseMove.x, e.mouseMove.y);
-    }
-
-    if (e.type == Event::KeyPressed)
+    if (e.type == sf::Event::KeyPressed)
     {
         float delta = 5;
 
-        if (e.key.code == Keyboard::Up)
+        if (e.key.code == sf::Keyboard::Up)
         {
             if (mTimeScale + delta < 128)
             {
                 mTimeScale += delta;
             }
         }
-        else if (e.key.code == Keyboard::Down)
+        else if (e.key.code == sf::Keyboard::Down)
         {
             if (mTimeScale - delta > 0)
             {
@@ -70,7 +65,7 @@ void SpirographScene::render()
     mUI.draw();
 }
 
-void SpirographScene::update(Time& deltaTime)
+void SpirographScene::update(sf::Time& deltaTime)
 {
     deltaTime *= mTimeScale;
     mSpiro.tick(deltaTime);
