@@ -1,5 +1,5 @@
 # spirograph
-Toy we know from childhood :)\n
+Toy we know from childhood.
 Entirely written in C++ as side project.
 
 ### Compilation
